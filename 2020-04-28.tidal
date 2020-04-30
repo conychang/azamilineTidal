@@ -6,61 +6,56 @@ p "test"
         -- #end 0.25
 
 p "test"
-    $ s "chBass/2?" #n 1 #cut 0 #speed "[0.75, 0.75*2]" #mg #wah 0.75
+    $ s "chBass/4?" #n 1 #cut 0 #speed "[0.75, 0.75*2]" #wah 0.75 #gain 0.95
 
 hush
 
 p "playat"
     -- $ rvA 1.025
-    $ sometimesBy 0.25 (#speed 8)
-    -- $ fast 4
+    -- $ sometimesBy 0.25 (#speed 8)
+    $ fast 3
     -- $ slow 2
-    $ loopAt 8.78 
+    $ loopAt 9.78 
     $ s "[chPad]"
      -- #n 0 #wah "0.75, 0"
     -- $ s "chTr*3?" #n "0" #cut 0 #gain 1
         -- #wah 0.25 #octer (range 0.25 1.25 $ slow 4 sine)
         #speed "[2, 1.5]" |* speed (range 0.85 1.25 $ slow 8 sine)
-        #room 0.1 #sz 0.95 #mg
+        # room 0.1 #sz 0.95 
+        # fshift "[400, 405]" #octersub 1
+        |* fshift (range 3 0.5 $ slow 16 saw)
 
 hush
 
 
 do
-  -- hush
+  hush
   p "drum2"
     -- $ every 16 (rvB 1.25)
     -- $ slow 2
     -- $ sp
     -- $ every (slowcat [24, 36, 2]) (#gain 0)
-    -- $ slow (slowcat [1, 2, 4, 2, 0.5, 0.25])
-    -- $ sometimesBy 0.23 (#end (range 0.35 0.95 $ slow 4 sine))
+    $ sometimesBy 0.23 (#end (range 0.35 0.95 $ slow 4 sine))
     $ rarely (#cut 1)
     -- $ sometimes (|* speed (range 0.15 0.45 $ slow 16 sine))
     -- $ sometimesBy 0.25 (#speed (range 1.25 2.25 $ slow 4 sine))
     $ every 16 (#s "chPad")
     $ sometimes (#delay 0.25)
     $ sometimesBy 0.15 (#s "chClick:3")
-    $ sometimesBy 0.25 (#binshift 0.95)
-    $ sometimesBy 0.45 (#wah 0.75)
+    $ sometimesBy 0.25 (#binshf 1)
+    -- $ sometimesBy 0.45 (#wah 0.75)
     $ every 6 (#speed (randcat [0.75, 0.25, 1.24, 0.15]))
     $ off 0.25 (#s "chKk")
     $ n (scramble (randcat [2, 4, 1]) "0 1 2 4")
-    # s "[chDrum03, chSn]" #cut 0 #rN
+    # s "[chDrum03,chSn]" #cut 0 #rN
     -- # end 0.35 * up "[0, 4]"  #speed (range 1.5 2 $ slow 8 sine)
     -- #speed (slowcat [2.25, 16, 8, 0.25])
-    # gain "1.25" #dist 0.015 #speed 0.75
+    # gain "0.95" #dist 0.045 #speed 0.75
     # end (randcat [0.95, 0.85, 1, 1, 0.75])
-    -- # djf 0.05
+    # cps (240/60/2)
+    -- # binshf 1
+    # djf (range 1 0.25 $ slow 16 sine)
     -- # delayt 0.25
 
-p "drum" 
-  -- $ rvB 0.25
-  $ sometimes (#s "chHat01")
-  $ s "chKk*2?" #n 1 #speed (range 0.25 2.25 $ slow 4 sine)
-        #rN #delay 0.25 #gain (range 0.75 1.25 $ slow 24 sine)
-        #speed 4
-
-hush
 
 setcps (240/60/2)
