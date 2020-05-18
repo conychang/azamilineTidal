@@ -28,13 +28,97 @@ p "playat"
 hush
 
 
+p "p" $ s "bd"
+
+p "drum2" silence
+
+solo "bass"
+
+once 
+
+hush
+
+
+
+
+p "bd" $ s "cp:1*2"
+
 do
   hush
+  once $ s "baby:2" #cut 0 #mg #dist 0.25
+i
+
+p "drum2" silence
+
+do
+  -- hush
+  -- unsolo "bass"
+  p "drum2"
+    -- $ every 16 (rvB 1.25)
+    -- $ fast 2
+    -- $ sp $ sp'
+    -- $ rvA 1.25
+    -- $ every (slowcat [24, 36, 2]) (#gain 0)
+    -- $ sometimesBy 0.23 (#end (range 0.35 0.95 $ slow 4 sine))
+    -- $ rarely (#cut 1)
+    -- $ every 1 (#s "realclaps")
+    $ every 2 (fast 1.5)
+    -- $ every 8 (#cps 0.5)
+    -- $ every 9 (#cps 0.35)
+    $ every 8 (#slowWwet 0.85)
+    $ every 8 (#delay 0.25)
+    $ every 16 (#imag 0.25)
+    -- $ every 80 (#hpf 3000)
+    $ sometimes (|* speed (range 0.95 1.05 $ slow 16 sine))
+    -- $ sometimesBy 0.25 (#speed (range 1.25 2.25 $ slow 4 sine))
+    -- $ fast (slowcat [1,1,1,2])
+    $ every 16 (#s "chPad")
+    $ every 4 (#s "korgm01")
+    -- $ fast (randcat [1, 1.5, 2])
+    -- $ sometimes (#delay 0.25)
+    -- $ sometimesBy 0.15 (#s "chClick:3")
+    $ sometimesBy 0.25 (#binshf (randcat [0.75, 0.25, 1]))
+    $ rarely (fast 2)
+    -- $ sometimesBy 0.45 (#wah 0.75)
+    $ every 6 (#speed (randcat [0.75, 0.25, 1.24, 0.15]))
+    $ off 2 (#s "[chHat02?, drum, kk]")
+    -- $ off 2 (#s "moe4")
+    -- $ n (scramble (randcat [2, 4, 1]) "0 1 2 4")
+    -- $ struct ("{t? ~ t? ~ t}%3")
+    -- $ n "{1 ~ 1 ~ [~ 1]}%2"
+    $ s "chClick*2? chKk*2?" #cut 0 #rN 
+    -- # end 0.35 * up "[0, 4]"  #speed (range 1.5 2 $ slow 8 sine)
+    -- #speed (slowcat [2.25, 16, 8, 0.25])
+    -- #dist 0.25 
+    -- # end (randcat [0.95, 0.85, 1, 1, 0.75])
+    # cps (160/60/3)
+    -- # binshf 0.25
+    -- # imag 0.15
+    # djf (range 1 0.15 $ slow 8 sine)
+    -- # delayt 0.25
+
+p "test"
+    $ rvA 1.25
+    -- $ off 4 (#s "808:0")
+    $ s "drum:0*8?" #orbit 0 #speed 1.0 #cut 0 #octer 0.5 #speed 1.05
+    -- # djf 0.85
+
+
+
+
+do
+  -- hush
+  -- once $ s "chBass"
   p "drum2"
     -- $ every 16 (rvB 1.25)
     -- $ slow 2
     -- $ sp
     -- $ every (slowcat [24, 36, 2]) (#gain 0)
+    -- $ rvB 0.25
+    $ fast 2
+    -- $ every 8 (#cps 0.5)
+    $ every 9 (#gain 0)
+    -- $ every 9 (#cps 0.35)
     $ sometimesBy 0.23 (#end (range 0.35 0.95 $ slow 4 sine))
     $ rarely (#cut 1)
     -- $ sometimes (|* speed (range 0.15 0.45 $ slow 16 sine))
@@ -47,15 +131,16 @@ do
     $ every 6 (#speed (randcat [0.75, 0.25, 1.24, 0.15]))
     $ off 0.25 (#s "chKk")
     $ n (scramble (randcat [2, 4, 1]) "0 1 2 4")
-    # s "[chDrum03,chSn]" #cut 0 #rN
+    # s "[drum,chSn]" #cut 0 #rN
     -- # end 0.35 * up "[0, 4]"  #speed (range 1.5 2 $ slow 8 sine)
     -- #speed (slowcat [2.25, 16, 8, 0.25])
     # gain "0.95" #dist 0.045 #speed 0.75
     # end (randcat [0.95, 0.85, 1, 1, 0.75])
-    # cps (240/60/2)
+    # cps (160/60/3)
     -- # binshf 1
-    # djf (range 1 0.25 $ slow 16 sine)
+    -- # djf (range 1 0.25 $ slow 16 sine)
     -- # delayt 0.25
 
+hush
 
 setcps (240/60/2)
