@@ -1,0 +1,52 @@
+setcps (200/120)
+
+hush
+
+d1 $ rarely (slow 2) $ fast 4 $ n (fit 2 [0,1,2,3] "0 1 0 1") # s "[cch|crtm]"
+    #mg #wah 0.25
+
+d1 $ fast 2 $ n ( "2 3" +  "4 5 6" )  |> sound "cch ccp crtm" #rN
+
+
+
+
+p "test"
+    $ fast 3
+    $ s "kk:15*4"
+
+hush
+
+p "drum2"
+    $ sometimesBy 0.75 (fast 2)
+    $ off 0.25 (#gain 0)
+    $ n (scramble 3 "0 1 2")
+    # s "[drum]"
+    # end 0.2 * up "[0,4]"
+    # gain "[1 0.75]*2"
+    -- # speed (range 0.12 1.25 $ slow  4 sine)
+    -- # hpf 2000
+
+p "pad" silence
+
+p "pad"
+    $ loopAt "<6 7>"
+    $ s "csynth10"
+    # room 0.1 #sz 0.85  #orbit 1 
+
+do
+  -- hush
+  p "pad"
+    $ every 25 (#cut 0)
+    -- $ sp
+    -- $ sp'
+    $ slow 4
+    $ chunk 4 (fast 2 . (|- n 12))
+    $ off 0.25 (|+ 7) 
+    $ struct (iter 4 "t(5,8)")
+    $ n (scale "ritusen" (randcat ["0 .. 6"]))
+    # cut 0 
+    # sustain 4
+    # s "[bow]"
+    # octave (randcat [4,5,6])
+    # gain (range 0.5 0.86 $ slow 16 sine) #room 0.1 #sz 0.7
+    -- # wah (range 0.25 1 $ slow 8 sine)

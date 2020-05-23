@@ -1,0 +1,27 @@
+
+hush
+
+accumulate [1..5]
+
+
+do
+  let ppp = "bd ~"
+  drawLine ppp
+
+drawLineSz 4 p
+
+
+hush
+
+
+do 
+  draw "bd ~"
+
+  p "bd"
+    $ rvA 0.25
+    -- $ sp $ sp'
+    $ every 4 (#slowWwet 0.95)
+    $ every' 4 (slowcat [2,4,6]) (#octer 1)
+    $ someCyclesBy 0.75 (#s "ccp*3")
+    $ s "kk:15*16?" #cps (160/60/4) #cut 0
+  -- draw "bd ~"

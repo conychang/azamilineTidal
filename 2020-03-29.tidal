@@ -1,0 +1,131 @@
+
+hush
+
+
+once $ s "bow" #n 4 #sustain 4 
+   # room 0.1 #sz 0.95
+   # wwet 0.7
+
+
+once $ s "bd"
+
+hush
+
+solo "pad"
+
+do
+  -- hush
+  unsolo "pad"
+  p "pad"
+    $ slow 2
+    -- $ every 25 (#cut 0)
+    -- $ sometimesBy 0.7775 (#n 9)
+    -- $ sp
+    -- $ sp'
+    $ slow 4
+    $ chunk 4 (fast 2 . (|- n 12))
+    $ off 0.25 (|+ 5)
+    $ off 0.25 (#sustain 10)
+    $ struct (iter 4 "t(5,8)")
+    $ n (scale "ritusen" (fastcat ["0 .. 6"]))
+    -- # cut 0 
+    # sustain 8
+    -- # legato 1
+    # s "[bow|bowfm|~]"
+    -- # speed (choose [100, 1000, 2000, 3000])
+    # octave (slowcat [4, 5, 6])
+    # room 0.1 #sz 0.98 
+    # gain 0.65
+    -- # hpf (range 500 2000 $ slow 8 sine)
+    # lim 1
+    -- # hpq 0.35
+    -- # gain (range 0.05 1 $ slow 16 sine)
+    # wwet 0.75
+    -- # delay 0.25 #delayt 0.95 #delayfb 0.25
+    -- # crush 3  
+    # binshfN 0.15
+    -- # tremdp 2.7 #tremr 1
+    -- # leslie 1 #lrate 1.8 #lsize 3.9
+    # orbit 1
+    # wah (range 0.25 1 $ slow 8 sine)
+
+p "pad"
+    $ slow 8
+    $ n (run 5)
+    # s "fmgrain" #sustain 40 #mg
+    -- # delay 0.8 #delaytime 0.25
+    -- #wah 0.75
+
+
+once $ s "fm_grain_test" #n 3
+
+hush
+
+
+p "808"
+    -- $ off 3 (#speed "[1, 0.5]")
+    -- $ fast 4
+    -- $ rvA 0.25
+    $ s "808/4" #cut 0
+    # speed "[1, 0.5]"
+    # up (choose [1, 4, 6, -1, -3])
+    # mg
+    |* speed (-0.55) 
+ -- |* speed 0.25
+
+
+hush
+
+p "drum00"
+    -- $ sp'
+    $ palindrome
+    $ stack [
+     rarely (#gain 1.3) $ sometimesBy 0.45 (#dist 0.65)
+      $ s "kk:15*16?" 
+        #speed (range 3 1 $ slow 16 sine)
+        #cps (160/60/3) 
+    , rarely (#hpf 2000) $ s "cch*16?" #dist 0.25 #rN
+        #cps (160/60/4)
+    , s "[pi,pluck]*16" #accelerate (run 10) 
+        # sustain 0.15 #gain 0.95
+        # n (scramble 2 "0 1 2 3") #octave (run 5)
+            #dist 0.25
+            -- #hpf (range 1 2000 $ slow 4 sine)
+        #cps (160/60/4)
+    ] 
+    -- #cps (160/60/4) 
+    #speed (range 3 0.75 $ slow (choose [4, 8, 16]) sine)
+    -- #hpf 2000
+        |* gain 1.2
+
+hush
+
+p "fm7"
+    $ fast (slow 3 sine)
+    -- $ sp
+    $ n (run 20)
+    # s "pad"
+        #sustain 0.3
+        #accelerate (fastcat [1, 2])
+        #octave (run 7)
+        -- #wwet 1
+        -- # hpf 2000 
+        # delay 1 #delaytime 0.25 #room 0.1 #sz 0.75
+
+hush
+
+
+p "fm7"
+    $ rarely (jux $ rev)
+    -- $ slow 2
+    $ every (choose [4, 8, 16]) (slow 8)
+    $ n (scramble 4 "0 1 2 3 4")
+    # s "pad*18?" #octave (run 7)
+        -- #n (run 10) 
+            #sustain (choose [1, 1.5, 2])
+            #accelerate (fastcat [0.5, 1, 1.5, 2])
+            #cut 0 #mg
+            -- #tsdelay 2.85 
+            -- #xsdelay (range 0.15 2.25 $ slow 16 sine)
+
+hush

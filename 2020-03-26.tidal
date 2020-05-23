@@ -1,0 +1,208 @@
+
+setcps (160/60/3)
+
+
+hush
+
+p "bass"
+  -- $ rvA 0.25
+  -- $ sp'
+  $ slow 3
+  $ fast 1.5
+  $ rarely (#wwet 0.7)
+  $ rarely (#wah 0.7)
+  $ every 2 (fast(choose [1, 1.5,3]))
+  -- $ every 5 (slow 2)
+  $ stack [
+   off (fastcat [0, 2, 4, 8]) (#speed "[1.5, 2]")
+    $ every 6 (fast 6)
+    $ s "[bass3:2,808]"
+        #room 0.1 #sz 0.95
+    -- #gain (0.9+rand/3)
+    -- #n (choose [1, 2])
+    -- #mg
+    -- #dist 0.25
+    -- #octer 1.5
+    #cps (160/60/3)
+    #up (choose [0, 12, 24, 3, 7, -2, -4])
+    -- # hpf (range 2 3000 $ slow 16 sine)
+  ]
+
+p "kick"
+    -- $ sometimes (jux $ rev)
+    $ sp'
+    -- $ fast 4
+    $ sometimesBy 0.75 (fast 2)
+    $ rvA 1.25
+    $ s "[kk:15]  [~ cch] [~ kk0?]" #gain 1.01 #cut (-1)
+        #speed (slowcat [0.63, 1.25, 1.5]) 
+        #delay 0.2 #delayt (slowcat [0.25, 0.5, 0.9]) #delayfb 0.25  #orbit 1
+        -- #wwet 0.45 #room 0.1 #sz 0.9 
+        #orbit 1
+    # cps (160/60/4)
+
+
+hush
+
+do
+ -- hush
+ p "kicks"
+  -- $ rot "<1 4>"
+  $ every 10 (#gain 0)
+  $ every 7 (#gain 0)
+  $ every 3 (repeatCycles 4)
+  $ slow (slowcat [1, 2, 4, 8])
+  -- $ chunk 6 (slow 2)
+  $ stack
+   [ s "csub [~ kk] [~ kk]" #n "2 3 4"
+     , s "[~?, audacity?] 808 [snare sine ~]" #rN' #dist 0.45
+     -- , s "ccp*2?"
+   ]
+  # cut 1
+  # hi 2000 8 
+  #orbit 2
+  # speed (range 0.25 1.25 $ slow 4 sine)
+  # rN' #cps (160/60/3)
+  -- # speed (slowcat [1.5, 1.6, 2.7, (-0.9)])
+  -- # cps (200/120)
+ p "kicks h"
+  -- $ rot "<1 4>"
+  -- $ every 6 (#gain 0)
+  -- $ every 7 (#gain 0)
+  -- $ every 3 (repeatCycles 3)
+  $ sp $ sp'
+  $ palindrome
+  $ every 6 ( slow (randcat [2, 4, 8]) )
+  $ slow (slowcat [2, 4, 8])
+  -- $ sometimes (slow "2")
+  $ fast "2"
+  -- $ chunk 6 (fast 2)
+  $ stack
+   -- [ s "kk [. kk] [~ kk]"
+     [ 
+       s "csn 909 [csn [viopi, viopi]? ~]" #rN #shape 0.6
+        , slow 16 $ s "[000, vio:1, vio:2]? ~ ~" #orbit 1 #room 0.1 #sz 0.98 #wwet 0.7
+            #speed 0.95 #ring 0.45 #ringf 0.56 #ringdf 0.57 #wwet 0.45
+        , palindrome $ rarely (#lim 1) $ s "[~ lldd][~ ~][~ lldd]" 
+        # speed (randcat [0.75, 0.65, 0.25, 1.25]) |* speed 0.5
+        #wah 0.47 #orbit 0 #n 3 #end 0.75 #gain (range 0.85 1.25 $ slow 4 sine)
+        #squiz (slowcat [2, 4, 8]) #octer 1
+        -- #up (choose [0, 12, 24, 3, 7, -2, -4])
+        # hi 50 8
+     ]
+  #cut (0) #cps (160/60/3)
+  # hi 50 8
+  # speed (randcat [1.5,(-0.5),(-0.25),0.75])
+
+
+hush
+
+p "drum00" silence
+
+p "drum00"
+    -- $ sp'
+    $ stack [
+    s "kk:15*16?" #speed (range 3 0.15 $ slow 16 sine)
+    , s "cch*16?" #dist 0.25 #rN
+    , s "csn(2,8)" #dist 0.25
+    ] #cps (160/60/8) #speed (range 3 1 $ slow 4 sine)
+    #gain 1.43 #wah 0.25
+
+
+
+p "hat"
+   -- $ rvA 0.25
+   -- $ sp'
+   -- $ sp
+   $ slow 2
+   -- $ rarely (fast 6)
+   $ rarely (#lim 1)
+   $ fast 2 
+   $ fast "1 0.5"
+   $ sometimesBy 0.25 (slow 2)
+   $ every 16 (#speed (range 0.1 4 $ slow 8 sine ) )
+   $ stack
+    [ 
+        -- chunk 2 (hurry 2) $ sometimes (rev) 
+    s "[kk?, csub]" #rN #gain 1.45
+    , s "[cch*16?]" #rN #dist 0.45 #cut 1 #shape 0.99 #octer 1
+        -- # gain 1.45
+        # speed (range 1 1.55 $ slow 4 sine)
+    , s "808(2,7)" #n "{1 4 1 1 1?}%3"
+    , s "[kk ~] [~ kk] [moe4, cch ~]" #rN |* gain 0.45
+                -- #room 0.1 #sz 0.35
+    ]
+   -- # gain (range 0.8 1 $ slow 14 sine) 
+   # speed (range 0.9 2.5 $slow 16 sine)
+   -- # pan "[0.0, 1.0]" #mg
+   # cps (160/60/4)
+   #hpf 3000
+
+hush
+
+lim = pf "lim"
+
+
+lim :: Pattern Double -> ControlPattern
+lim = pF "lim"
+
+
+
+do
+  hush
+  p "pad"
+    $ slow 2
+    -- $ every 25 (#cut 0)
+    -- $ sometimesBy 0.7775 (#n 9)
+    $ sp
+    $ sp'
+    $ slow 4
+    $ chunk 4 (fast 2 . (|- n 12))
+    $ off 0.25 (|+ 5)
+    $ off 0.25 (#sustain 10)
+    $ struct (iter 4 "t(5,8)")
+    $ n (scale "ritusen" (fastcat ["0 .. 1"]))
+    -- # cut 0 
+    # sustain 8
+    -- # legato 1
+    # s "[bow]"
+    -- # speed (choose [100, 1000, 2000, 3000])
+    # octave (slowcat [5])
+    # room 0.2 #sz 0.98 
+    # gain 0.65
+    -- # hpf (range 500 1000 $ slow 8 sine)
+    # lim 1
+    -- # hpq 0.35
+    -- # gain (range 0.05 1 $ slow 16 sine)
+    -- # wwet 0.75
+    # delay 0.25 #delayt 0.95 #delayfb 0.25
+    -- # crush 3  
+    # tremdp 2.7 #tremr 1
+    -- # leslie 1 #lrate 3 #lsize 3.9
+    # orbit 1
+
+p "hat02" silence
+
+do
+  -- hush
+  p "hat02"
+    $ slow 2 $ every 4 (fast 2)
+    $ sp $sp'
+    $ rvA 0.25
+    $ fast 2
+    $ rarely (#lim 1)
+    $ rarely rev
+    $ sometimes (stut "[2|4]" (1/2) (1/2))
+    $ sometimesBy 0.15 (slow 2)
+    $ sometimesBy 0.75 (fast 2)
+    $ n (scramble 3 "0 1 2")
+    # s "[drum, drum02, ckick]"
+    # speed (slowcat [0.75, 0.75*2, 0.75*0.5, 0.75*1.5])
+    # speed (range 7.15 1.25 $ slow 24 sine)
+    # lim 1
+    # shape 0.55 #octer 1.5  #ring 0.76
+    # end 0.1 * up "[0,4]"
+    # gain "[0.9 0.25]*2"
+    # cps (160/60/3)
+    -- # cps (200/120)
+

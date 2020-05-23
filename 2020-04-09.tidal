@@ -1,0 +1,36 @@
+p "super"
+    -- $ rvA 0.25
+    $ fast  2
+    $ off 4 (#speed "1.25")
+    $ s "[gabba, casio]*8?" #speed (range 2 3 $ slow 8 sine) #n (run 8) #end 0.65
+
+
+hush
+
+p "" silence
+
+p "shelly"
+    $ every 3 (slow 4)
+    $ every 5 (fast 2)
+    $ every 4 (chop 4)
+    $ every 6 (jux (rev))
+    $ s "[arpy, ~ jijiinocp:3, csn(3,8)]"
+    # n (choose[1,5,6])
+
+p "khoparzi"
+    $ stack [
+    rarely (stut 2 0.625 0.125)
+    $ s "[~ ho]*4" #gain 1 #end 0.4
+    , often (fast 2) $ s "ht(3,8)" #speed (range 1 3 $ slow 8 $ sine) #gain 1
+    ]
+
+p "eldad"
+    $ stack [
+    s "csub:3*16?" #end (rand/8) #up (choose[0.7,12,13,12,0,-5]),
+    every 5 (#speed 4) $ every 4 (trunc 0.25) $ s "sid:3*16" #up (choose [3,7,8,10,12,13])
+    # pan rand
+    ]
+
+hush
+
+setcps (120/60/4)

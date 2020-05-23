@@ -1,0 +1,42 @@
+
+p "rtm"
+    $ loopAt 10.55
+    $ s "korgm06" #speed "[1, 0.85]" #delay 0.25 #delayt 0.75
+
+    hush
+
+do
+ -- hush
+ p "bass"
+  -- $ rvA 2.25
+  -- $ sp'
+  $ slow 6
+  -- $ every 4 (#gain 0)
+  -- $ fast 1.5
+  -- $ every 8 (#speed 2)
+  -- $ every 16 (#mg)
+  $ sometimesBy 0.25 (#binshf 0.75)
+  $ rarely (#speed (-1))
+  -- $ every 2 (fast(choose [1, 1.5,3]))
+  -- $ rvA 0.25
+  $ every 5 (slow 2)
+  $ stack [
+   off 0.5 (#speed "[1.5, 2]")
+    $ every 6 (fast 6)
+    $ s "[bass3]"
+        #room 0.1 #sz 0.95
+        #rN #shape 0.75 #binshf 0.5
+    -- #gain (0.9+rand/3)
+    -- #n (choose [1, 2])
+    -- # delay 0.25  #speed 0.25 
+    # end 0.75 #gain 1 #orbit 1
+    -- #wah 0.15
+    -- #dist 0.25
+    -- # panR
+    -- |* speed (-1)
+    -- #cps (160/60/4)
+    -- #up (choose [0, 12, 24, 3, 7, -2, -4])
+    -- # hpf (range 20 3000 $ slow 16 sine)
+    ]
+
+hush

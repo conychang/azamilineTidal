@@ -1,0 +1,15 @@
+p "scsynth"
+    $ n (slow 2 $ fmap (*7) $ run 8) 
+    # s "supergong" #decay "[1 0.2]/4" #voice "[0.5 0]/8"
+
+p "superkick"
+    $ slow 2
+    $ every 4 (#octave 7)
+    $ rvB 0.25
+    $ n (run 4)
+    # s "superclap" #sustain (slowcat [0.25, 0.75, 1.25]) #accelerate (range 0.25 0.75 $ slow 4 sine)
+    # octer 0.85 #octave (slowcat [2,3,4])
+    # panR #orbit 1 #room 0.1 #sz 0.75 #wwet 0.75
+    -- # gain (randcat [0.25, 0, 0.95, 0.8])
+
+hush

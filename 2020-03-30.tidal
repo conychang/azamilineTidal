@@ -1,0 +1,36 @@
+once $ s "bowfm" #n 0 #speed 4000
+    -- #cut (1)
+    -- #wwet 0.86
+
+hush
+
+i
+
+once $ s "kk:15*3"
+
+once $ s "pi*4" #cut (1)
+
+
+
+
+do
+  -- hush
+  p "pad"
+    $ every 25 (#cut 0)
+    -- $ sp
+    -- $ sp'
+    $ slow 8
+    $ chunk 4 (fast 2 . (|- n 12))
+    $ off 0.25 (|+ 7) 
+    $ struct (iter 4 "t(5,8)")
+    $ n (scale "ritusen" (randcat ["0 .. 6"]))
+    -- # cut (-1) 
+    -- # sustain (choose [0.5, 1, 2.5, 4])
+    # sustain 8
+    # legato 1
+    # s "[bow]" #speed 2000
+    # octave (randcat [4,5,6])
+    # gain 0.8
+    
+    -- # gain (range 0.05 1 $ slow 16 sine)
+    # wah (range 0.25 1 $ slow 8 sine)

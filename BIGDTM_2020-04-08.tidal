@@ -1,0 +1,89 @@
+setcps (80/60/4)
+
+hush
+
+
+p "test"
+    $ s "cp:1" #orbit 0
+
+
+-- どうするかな〜
+-- どうするかな〜
+-- orbit 0, 1 -- 0は、ドラム
+
+do
+  p  "drum00"
+    $ sp'
+    $ rvA 0.25
+    $ sometimesBy 0.1 (slow 2)
+    $ sometimes (#octer 0.25)
+    $ every 32 (#binshift 0.7)
+    $ fast 2
+    $ stack [
+    s "[toybrass:1, 808]/2?" #wah 0.25 #cut 0 #delay 0.25 #delayt 1.25 #delayfb 0.25  #orbit 1
+    , s "[ckick:4, cch:3, cp:1]*16?" 
+    , s "cch*16?" #dist 0.25 #rN #mg
+    , s "csn(2,8)" #dist 0.25 #mg
+    ] 
+    #cps (160/60/(slowcat [8]))  
+    -- #speed (range 3 1 $ slow 4 sine)
+    -- #binshift (range 0.1 1 $ slow 16 sine) #delay 0.25 #delayt 0.75
+    # hpf 2000
+  -- hush
+  p "toy01"
+    -- $ slow 4
+    $ sp  $ sometimesBy 0.75 (jux (rev))
+    $ every 16 (fast 16)
+    $ fast (slowcat [1, 2, 3, 4, 6 ])
+    $ loopAt (slowcat [1, 2])
+    $ s "[toydr, 808]" #cut (1)  #mg #n (randcat [0, 1])
+        #dist 0.4 #cps (160/60/3)
+        #binshfN 0.45  #orbit 2
+        #delay 0.25 #delayt 0.45 #delayfb 0.25
+        #wwet 1 #gain 0.95
+ 
+
+
+
+hush
+
+
+-- orbit 3 (あとで3に書き直す)　-- なんか、うるさい
+
+do
+  -- hush
+  p "toy01"
+    -- $ slow 4
+    $ sp  $ sometimes (jux (rev))
+    $ every 8 (fast 16)
+    $ fast (slowcat [1, 2, 3, 4, 6 ])
+    $ loopAt (slowcat [1, 2])
+    $ s "[toydr, 808]" #cut (1)  #mg #n (randcat [0, 1])
+        #dist 0.4 #cps (160/60/3)
+        #binshfN 0.45  #orbit 2
+        #delay 0.25 #delayt 0.45 #delayfb 0.25
+        #wwet 1 #gain 0.95
+        -- #speed (range 0.5 1.67 $ slow 8 sine)
+
+
+-- orbit 1 -- fxけい
+
+do
+  -- hush
+　 p "toy02"
+    $ slow 4
+    $ rvA 1.25
+    $ loopAt (randcat [2, 1])
+    $ s "toyfx*3" #cut (0)  #mg #n "0 1 2"
+        #speed (range 0.5 1.67 $ slow 8 sine)
+        #wwet 1.5 #room 0.1 #sz 0.9 |* gain (range 1 1.2 $ slow 8 saw) #orbit 1
+
+p "pi"
+    $ sp
+    $ rvA 0.25
+    $ slow (slowcat [4, 8])
+    $ s "pi*10" #n (run 10)
+        #accelerate 0.25 #sustain 1.5
+        #pan rand #orbit 1 #delay 0.25 #delayt 0.75
+        #octave (slowcat [4,5,6]) #room 0.1 #sz 0.9 #gain 0.75
+

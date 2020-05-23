@@ -1,0 +1,41 @@
+sock <- carabiner tidal 2 (0.2)
+
+hush
+
+p "cc"
+    $ ccv ((127/2) + (slowcat [0,0, 1,1, 2,2, 3,3, 4, 10]))
+        # ccn 29 #s "midi" #midichan 1
+
+p "cc02"
+    $ ccv ((127/2) + 30 + (fastcat [3, 6, 12]))
+        # ccn 31 #s "midi" #midichan 2
+
+p "digi"
+ 
+    $ n "<c d e>"
+    # s "midi" #midichan 0
+
+
+p "cc"
+    $ stack [
+     ccv (randcat [10, 120, 30, 40, 50, 90, 100, 127]) #ccn 29 #s "midi" #midichan 1 
+     , ccv (randcat [100, 127, 80, 90]) #ccn 31 #s "midi" #midichan 1
+     ]
+    -- $ ccv #ccn 
+
+p "cc" $ ccv 30 #ccn 28 #midichan 1
+
+p "digi"
+    -- $ sp' $ rvA 0.25
+    -- $ sp
+    $ slow (slowcat [1, 1, 2, 2, 3])
+    -- $ every (slowcat [1,2,3,4,5,6,7,8]) (#octave 8)
+    $ fast (slowcat [2, 2, 2, 3, 4, 5])
+    $ slow 2
+    -- $ slow "<3 7>"
+    $ n (scramble 3 "c d e")
+    -- $ n "t*8?"
+    # s "midi" #midichan "[0, 1]"
+        #octave "3 4 2"
+        -- #gain (range 0.25 1 $ slow 24 sine)
+        

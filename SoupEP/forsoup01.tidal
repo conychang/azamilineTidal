@@ -1,0 +1,121 @@
+p "korgm006"
+    $ rvA 0.25
+    -- $ sp $ sp'
+    $ sometimesBy 0.25 (#s "808")
+    $ s "korgm06*16?" #mg #wah 0.25 #speed (range 0.25 1.25 $ slow 4 sine) #hi 40 8
+
+hush
+
+
+p "ary1"
+    $ s "korgm05" #n 0
+
+p "arpy2" silence
+
+
+do
+  hush
+  p "arpy1"
+    $ sometimesBy 0.75 (#speed (-1))
+    $ slow 3
+    $ sp 
+    $ rvA 4
+    $ sometimesBy 0.75 (|* speed (0.5))
+    $ sometimes (fast 2)
+    $ n (scramble 3 "0 1 2 3 4 5")
+    # s "[korgm05]" #gain "[1 0.5]*4" #end 0.45 * up "[0 3]"
+    # gain (range 0.75 1 $ slow 8 sine) #shape 0.7
+    |* speed "[0.5,1]" #binshift (range 0.25 1 $ slow 8 sine)
+    -- # binshift 0.75
+
+p "arpy2"
+    $ rev
+    $ sometimesBy 0.75 (# coarse "<4 5 6 7 8>")
+    -- $ sometimes (rev)
+    $ sometimes (#speed (-1))
+    $ off 0.25 (#gain 0)
+    $ slow 4
+    $ fast 4
+    $ n (scramble 2  "0 1 2 3 4 5")
+    # s "lldd" #gain "[1 0.5]*4" #end 0.85 * up "[0 3]"
+    |* speed "{0.5 0.75 1.25}%2" 
+    -- # room 0.1 #sz 0.45 #wah 0.75 |*speed 0.5
+    -- # gain (range 1 0.75 $ slow 16 sine)
+
+
+do
+  -- hush
+  p "korgm006" silence
+  p "drum2"
+   $ rvA 1.25
+   -- $ sp'
+   -- $ sp
+   $ fast "1 0.5"
+   $ sometimes (#binshf 0.46)
+   $ sometimesBy 0.25 (slow 2)
+   $ every 16 (#speed (range 0.1 4 $ slow 8 sine ) )
+   $ stack
+    [ chunk 2 (hurry 2) $ sometimes (rev) 
+        $ s "[drum, chHat01*6, ~(2,8)]" #shape 0.25
+        # speed (range 1 1.55 $ slow 4 sine)
+    -- , s "808(2,7)" #n "{1 4 1 1 1?}%3"
+    , s "[kk,csub ~] [~ drum] [chDrum01, jijiinocp ~]" #rN |* gain 0.45  #pan rand
+                -- #room 0.1 #sz 0.35
+    ]
+   # gain (range 0.95 1.15 $ slow 14 sine) 
+   # speed (range 0.9 1.5 $slow 4 sine)
+   # pan "[0.0, 1.0]"
+   -- # djf (range 0.15 1 $ slow 8 sine)
+   -- # hpf (range 300 20 $ slow 10 sine)
+
+hush
+
+p "drum2" silence
+
+do
+ -- hush
+ p "kicks"
+  $ rot "<1 3>"
+  $ every 10 (#gain 0)
+  $ every 7 (#gain 0)
+  $ every 3 (repeatCycles 4)
+  $ slow (slowcat [1, 2, 4])
+  $ chunk 6 (slow 2)
+  $ sp $ sp'
+  $ stack
+   [ s "~ [~ crz10] [~ kk]" #n "2 3 4"
+     , s "[korgm04?, audacity?] 808bd [snare sine]" #rN'
+     , s "ccp*2?"
+   ]
+  # end 0.55
+  # rN'
+  # speed (slowcat [1.5, 1.6, 2.7, (-0.9)])
+  # cps (200/120)
+
+
+do
+ p "kicks h"
+  $ rot "<1 4>"
+  $ every 6 (#gain 0)
+  $ every 7 (#gain 0)
+  $ every 3 (repeatCycles 3)
+  $ sp $ sp'
+  $ palindrome
+  $ every 6 ( slow (randcat [1, 2, 4, 8]) )
+  $ slow (slowcat [0.5, 1, 2, 4])
+  $ slow "8"
+  $ fast "8"
+  $ chunk 6 (fast 2)
+  $ stack
+   -- [ s "kk [. kk] [~ kk]"
+     [ 
+       s "kk [crz10,909] [808,csub sine ~]"
+        , s "[korgmpad/16]? ~ ~" #wwet 0.7 #room 0.1 #sz 0.9 #orbit 1
+     , fast 2 $ sp $ s "[~ korgm03, lldd][~ ][~ [korgm03, lldd]*2]" #dist 0.15 #end 0.15
+        # speed (randcat [-1.2,-0.6,-0.3]) #wah 0.7 #orbit 1 #room 0.1 #sz 0.75 #wwet 0.7 #djf (range 0.25 1 $ slow 16 sine) #sz 0.95
+     ]
+  # rN
+  # speed (randcat [1.5,(-0.5),(-0.25),0.75])
+
+
+hush

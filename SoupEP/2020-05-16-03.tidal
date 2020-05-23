@@ -1,0 +1,208 @@
+
+p "scale"
+    $ foldEvery [2..4] (slow 1.5)
+    $ n (scale "ritusen" $ snowball 4 (+) (slow 2) $ (run 7))
+    # s "midi" #midichan 3 #octave (slowcat [3, 4, 5])
+    -- #gain (range 0.65 1 $ slow 16 sine)
+ 
+hush
+
+setcps (200/60/3)
+
+solo "scale"
+
+
+solo "scale"
+
+unsolo "scale"
+
+do
+  p "drum2"
+    -- $ sometimesBy 0.75 (fast 2)
+    -- $ off 2 (#midichan 1)
+    -- $ sometimesBy 0.25 (slow 2)
+    -- $ rvA 1.25
+    -- $ fast 2.5
+    $ struct (every 3 inv "t(2,7)")
+    $ n (scramble 3 "0 1 1")
+    # s "[midi]"
+    # midichan (scramble 3 "0 2 2 1 1") #octave (randcat [4,3,5,6])
+    # sustain 0.04
+ -- # end 0.2 * up "[0,4]"
+    # gain "[1.25 0.75]*2"
+  
+
+hush
+
+p "bass"
+    $ s "midi" #midichan 0
+
+solo "scale"
+
+do
+  hush
+  unsolo "scale" 
+  let sv = 3
+      ft = 0.5
+      mm = struct (every sv inv "t(3,8)")
+  p "scale"
+    $ m
+    $ palindrome
+    -- $ slow 3
+    $ fast ft
+    -- $ foldEvery [6..8] (fast 2)
+    -- $ n "[4, 0]"
+    $ fast (slowcat [1, 1, 1, 1, 1, 1, 1, 1, 2, 2])
+    $ stut' sv (2/12) (|+ n "<5 7>")
+        $ s "midi" #midichan "[2]" 
+            # octave (slowcat [3, 3, 4, 4, 4, 5, 6, 7, 7])
+            -- # octave (slowcat [3, 4, 5])
+  p "hat"
+   -- $ every 2 (slow 1.5) $ foldEvery [32..34] (#gain 0) $ fast (slowcat [1, 1, 1, 1, 1, 1, 1, 1.25, 1.5, 1.25])
+   $ mm 
+   -- $ struct "t(3,8)"
+   $ stack
+    [ 
+        -- chunk 2 (hurry 2) $ sometimes (rev) 
+        rvA 0.25 $ s "superclap*6" #rN #gain 0.8 #sustain 0.85 #shape 0.55
+        -- , every 8 (#sustain 1) $ s "[midi]?" #octave 5 #sustain 0.8
+        , stut' 1 (3/12) (|+ "<3 7>") $ s "[chKk, chHat01:1]*3?" #gain 1 #orbit 1
+        , stut' 1 (3/12) (|+ "<3 7>") $ s "csub:3?" #cut 0 #orbit 2 #mg
+        , stut' 1 (3/12) (|+ "<3 7>") $ s "pi?" #octave 2 #sustain 0.85
+            #wah 0.27 #shape 0.75 #accelerate 0.25 #orbit 2 #room 0.1 #sz 0.5
+        -- , stut' 1 (3/12) (|+ "<3 7>") $ s "midi*3?" #octave "[5, 6] [2, 3]" #sustain (range 0.1 2 $ slow 16 sine)
+            #midichan 1
+        , s "superhat*3" #n 1 #octave 9 #gain 0.85 #sustain 0.25 #shape 0.65
+        -- # speed (range 1 1.55 $ slow 4 sine)
+      -- , s "chKk?" #octave 3 #gain 0.7
+    -- , s "[drum ~] [~ kk] [asdm, cp ~]" #rN  #pan rand
+                -- #room 0.1 #sz 0.35
+    ]
+   -- # gain (range 0.75 0.75 $ slow 14 sine) 
+   -- # speed (range 0.9 2.5 $slow 16 sine)
+   # pan "[0.0, 1.0]" #decay 0.15 #pitch1 2000 #gain 0.6
+    -- # wah 0.25
+
+p "scale01"
+    -- $ foldEvery [24..32] (slow 1.5)
+    -- $ palindrome
+    -- $ sp'
+    -- $ slow 3
+    -- $ fast 3
+    -- $ fast 1.5
+    -- $ foldEvery [6..8] (fast 2)
+    -- $ m
+    $ fast 0.5
+    $ fast (slowcat [1, 1, 1, 1, 1, 1, 1, 1, 2, 2])
+    $ stut' 3 (2/12) (|+ n "<5 7>")
+        $ s "midi" #midichan "[0]" 
+            # octave (slowcat [3, 3, 4, 4, 5, 5, 6, 7])
+            -- # octave (slowcat [3, 4, 5])
+  
+
+
+
+hush
+
+
+p "bass"
+    -- $ sp'
+    -- $ stut' 2  (8/12) (|+ n "<3, 7>")
+    -- $ rvA 1.25
+    -- $ foldEvery [8..12] (slow 1.5)
+    -- $ slow 1.5 $ fast 2
+    $ n (scale "ritusen" $ snowball 4 (+) (slow 3) (run 4))
+        #s "midi" #midichan "[2]" #octave 3
+
+
+do
+    p "bd" $ s "bd"
+    p "midi" $ s "midi" #midichan 3
+
+hush
+
+
+
+p "cc"
+    $ ccv ((127/2) + (slowcat [0,0, 1,1, 2,2, 3,3, 4, 10]))
+        # ccn 29 #s "midi" #midichan 3
+
+p "cc02"
+    $ ccv ((127/2) + 30 + (fastcat [3, 6, 12]))
+        # ccn 31 #s "midi" #midichan 2
+
+
+hush
+
+
+ p "hat"
+   -- $ sp'
+   -- $ sp
+   -- $ slow 2
+   -- $ sometimes (rvA 0.25)
+   -- $ fast 2
+   -- $ sometimesBy 0.25 (fast 2)
+   -- $ fast "2 1"
+   -- $ fast "1 0.5"
+   -- $ fast 1.5
+   -- $ every 8 (fast 2)
+   -- $ slow 2
+   -- $ rvA 0.25
+   -- $ sometimes (fast 2)
+   -- $ fast 2
+   -- $ every 4 (fast 1.5) 
+   -- $ every 16 (#binshift 0.25)
+   -- $ foldEvery [32..34] (#gain 0)
+   $ struct (every 3 inv "t(3,8)")
+   -- $ struct "t(3,8)"
+   $ stut' 3 (2/12) (|+ "<3 7>")
+   -- $ every 16 (#speed (range 0.1 4 $ slow 8 sine ) )
+   $ stack
+    [ 
+        -- chunk 2 (hurry 2) $ sometimes (rev) 
+        every 8 (fast 2) $ s "superclap*2?" #rN #gain 0.8 #sustain 0.85
+        -- , every 8 (#sustain 1) $ s "[midi]?" #octave 5 #sustain 0.8
+        , every 16 (m) $ s "chKk?" #gain 0.5 #orbit 1
+        , every 16 (m) $ s "csub:3?" #gain 0.85 #cut 0 #orbit 2
+        -- , every 8 (fast 3) $ s "midi?" #octave "5 6" #sustain 0.25
+            -- #midichan 1 #sustain (range 0.05 0.5 $ slow 16 sine)
+        , every 8 (fast 2) $ s "superhat*4?" #n 1 #octave 9 #gain 0.85 #sustain 0.25 #shape 0.65
+        -- # speed (range 1 1.55 $ slow 4 sine)
+      -- , s "chKk?" #octave 3 #gain 0.7
+    -- , s "[drum ~] [~ kk] [asdm, cp ~]" #rN  #pan rand
+                -- #room 0.1 #sz 0.35
+    ]
+   -- # gain (range 0.75 0.75 $ slow 14 sine) 
+   -- # speed (range 0.9 2.5 $slow 16 sine)
+   # pan "[0.0, 1.0]" #decay 0.15 #pitch1 2000 #gain 0.6
+
+hush
+
+ 
+  p "scale"
+    -- $ foldEvery [24..32] (slow 1.5)
+    -- $ palindrome
+    -- $ sp'
+    -- $ slow 3
+    -- $ foldEvery [16..24] (fast 1.5)
+    $ stut' 7 (2/12) (|+ note "<3 7>")
+        $ s "midi" #midichan "[2,3]"
+            #octave (slowcat [2, 2])
+
+
+
+
+p "scale01"
+    -- $ foldEvery 
+    -- $ slow 1.5
+    -- $ foldEvery [16..20] (slow 2)
+    -- $ slow 3 $ fast 2
+    -- $ palindrome 
+    -- $ stut' 3 (2/12) (|+ n "<5 7>")
+    $ struct (every 3 inv "t(3,8)")
+    $ stut' 7 (2/12) (|+ n "<5 7>") 
+    -- $ n (scale "ritusen" $ snowball 8 (+) (slow 6) $ (run 6))
+    $  s "midi" #midichan "[0]" #octave (slowcat [3, 5])
+    -- #gain (range 0.65 1 $ slow 16 sine)
+
+

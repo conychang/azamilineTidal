@@ -1,0 +1,72 @@
+sock <- carabiner tidal 2 (0.2)
+
+hush
+
+p "odoreru"
+    -- $ fast (slowcat [1, 1, 2, 4])
+    $ sometimes (|* speed (-1))
+    -- $ slow 3
+    -- $ foldEvery [3,4,5,6,7] (fast 2)
+    -- $
+    -- $ fast 8
+    $ s "sine*4" 
+        -- # end (range 0.25 0.45 $ slow 16 saw)
+        # speed "[1]" |* gain 0.95
+        # room 0.1 #sz 0.85
+        # up "[0, 2]"
+        |* gain (range 0.25 0.55 $ slow (24*4) sine)
+        # octer (range 0.25 0.75 $ slow 16 sine)
+        # leslie 0.85 #lrate 0.25 #lsize 0.75
+        # panR #wah 0.75
+        |* speed 1.89 |* gain 0.85
+        |* speed 0.9
+        -- |* speed (randcat [0.75, 1.5, 1.5/0.65, 0.32, 0.32*2])  
+        # delay 0.25 # delayt 0.25 #delayfb 0.55 
+        -- #lim 1
+
+do
+  -- hush
+  p "808"
+    -- $ sometimes (#speed (0.75))
+    -- $ sometimesBy 0.25 (# s "chKk")
+    $ slow 4 $ s "[808]/2" #shape 0.25 #speed "[1, 1.5]"
+        #lim 1 #mg #delay 0.25 #delayt 0.25 #delayfb 0.55 |* speed (-1) #room 0.1 #sz 0.9 #wwet 0.7 #gain 1.05
+
+p "dds" silence
+
+hush
+
+do
+  p "4443" silence
+  p "dds"
+    $ slow 3
+    -- $ rvA 0.25
+    $ cat [
+      n "[t ~] [~ t] [f ~] [t f] [~ t] [f f]"
+    -- , n "[t ~] [~] [t] [~ t] [~ t]"
+    ] #s "[sp, cyclo]" #rN #djf (range 0.10 0.75 $ slow 2 sine) #accelerate 0.94 #sustain 0.45 #gain 0.75 #octave (slowcat [3, 4]) 
+
+do
+  p "dds" silence
+  p "4443"
+    -- $ struct "t/4"
+    -- $ palindrome
+    $ slow 3 
+    $ cat [
+      n "t*4"
+      , n "t*4"
+      , n "t*4"
+      , fast 2 $ n "t*3"
+    ] #s "[sp,cyclo]" 
+        -- #accelerate (range 0.94 0.1 $ slow 24 sine) 
+        #accelerate 0.95
+        -- # accelerate 0.1
+        #sustain 0.75
+        #room 0.25 #sz 0.9 #n "{2 4}%2"
+        #leslie 0.85 #lrate 0.25 #lsize 0.75
+        -- #binshf (range 0.025 0.1 $ slow 16 sine)
+        #octave (slowcat [3, 4, 6, 7])
+            #gain (range 0.45 0.65 $ slow 2 sine)
+
+
+hush
