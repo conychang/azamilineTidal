@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euf -o pipefail
+
+# Get current directory (of script)
+# http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+function setdir {
+  local source="${BASH_SOURCE[0]}"
+
+  # Resolve $SOURCE until the file is no longer a symlink
+  while [ -h "$source" ]; do
+    dir="$( cd -P "$( dirname "$source" )" && pwd )"
+    source="$(readlink "$source")"
+
+    # If $SOURCE was a relative symlink, we need to resolve it relative to the
+    # path where the symlink file was located
+    [[ $source != /* ]] && source="$DIR/$source"
+  done
+  DIR="$( cd -P "$( dirname "$source" )" && pwd )"
+}
+
+setdir
+
+TIDAL_BOOT_PATH=${TIDAL_BOOT_PATH:-"$DIR/../Tidal.ghci"}
+GHCI=${GHCI:-"ghci"}
+TIDAL_MODULE_SEARCH_PATH=${MODULE_SEARCH_PATH:-"/home/azamiline/okaowada/okachiho-tidal/modules/"}
+
+# Run GHCI and load Tidal bootstrap file
+# $GHCI -ghci-script $TIDAL_BOOT_PATH "$@"
+$GHCI -XOverloadedStrings -i$TIDAL_MODULE_SEARCH_PATH -ghci-script $TIDAL_BOOT_PATH "$@"
